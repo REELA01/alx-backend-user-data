@@ -17,7 +17,7 @@ def register_user(email: str, password: str) -> None:
 def log_in_wrong_password(email: str, password: str) -> None:
     """test for log in with the given wrong credentials"""
     req = requests.post('http://127.0.0.1:5000/sessions',
-                      data={'email': email, 'password': password})
+            data={'email': email, 'password': password})
     assert (req.status_code == 401)
 
 
@@ -40,7 +40,7 @@ def profile_logged(session_id: str) -> None:
     """test for profile with being logged in with session_id"""
     cookies = {'session_id': session_id}
     req = requests.get('http://127.0.0.1:5000/profile',
-                     cookies=cookies)
+                                 cookies=cookies)
     assert(req.status_code == 200)
 
 
