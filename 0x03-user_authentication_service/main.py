@@ -17,7 +17,7 @@ def register_user(email: str, password: str) -> None:
 def log_in_wrong_password(email: str, password: str) -> None:
     """test for log in with the given wrong credentials"""
     req = requests.post('http://127.0.0.1:5000/sessions',
-            data={'email': email, 'password': password})
+                        data={'email': email, 'password': password})
     assert (req.status_code == 401)
 
 
@@ -40,7 +40,7 @@ def profile_logged(session_id: str) -> None:
     """test for profile with being logged in with session_id"""
     cookies = {'session_id': session_id}
     req = requests.get('http://127.0.0.1:5000/profile',
-                                 cookies=cookies)
+                       cookies=cookies)
     assert(req.status_code == 200)
 
 
@@ -48,7 +48,7 @@ def log_out(session_id: str) -> None:
     """test for log out with the given session_id"""
     cookies = {'session_id': session_id}
     req = requests.delete('http://127.0.0.1:5000/sessions',
-                        cookies=cookies)
+                          cookies=cookies)
     if req.status_code == 302:
         assert(req.url == 'http://127.0.0.1:5000/')
     else:
@@ -58,7 +58,7 @@ def log_out(session_id: str) -> None:
 def reset_password_token(email: str) -> str:
     """test for reset password token with the given email"""
     req = requests.post('http://127.0.0.1:5000/reset_password',
-                      data={'email': email})
+                        data={'email': email})
     if req.status_code == 200:
         return req.json()['reset_token']
     assert(req.status_code == 401)
@@ -70,7 +70,7 @@ def update_password(email: str, reset_token: str,
     data = {'email': email, 'reset_token': reset_token,
             'new_password': new_password}
     req = requests.put('http://127.0.0.1:5000/reset_password',
-                     data=data)
+                       data=data)
     if req.status_code == 200:
         assert(req.json() == {"email": email, "message": "Password updated"})
     else:
